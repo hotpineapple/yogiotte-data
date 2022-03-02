@@ -16,12 +16,13 @@ lng text(1000)
 3. 임포트
 ```mysql
 LOAD DATA LOCAL 
-INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/seoul_202112_new.csv'
+INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/gyunggi_202112_new.csv'
 INTO TABLE places
 CHARACTER SET utf8
-    FIELDS TERMINATED BY ',' 
-    LINES TERMINATED BY '\n'
-    IGNORE 1 LINES;
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(name,maintype,subtype,address,lat,lng);
 ```
 4. 추가 컬럼
 ```mysql
