@@ -1,7 +1,7 @@
 # 공공데이터 파싱하기
 
 ## 1. CSV 파일 다운로드
-[링크](https://www.data.go.kr/data/15083033/fileData.do)
+[소상공인시장진흥공단_상가(상권)정보](https://www.data.go.kr/data/15083033/fileData.do)
 
 ## 2. 파싱을 통해 데이터 가공 및 필요한 정보만 가지고 새 파일 생성 
 ```java
