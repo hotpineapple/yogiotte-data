@@ -19,19 +19,19 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 
 		File input = new File(
-				"C:\\Users\\tiger\\Downloads\\소상공인시장진흥공단_상가(상권)정보_20211231\\소상공인시장진흥공단_상가(상권)정보_서울_202112.csv"); // 현재																										// 지정.
+				"C:\\Users\\tiger\\Downloads\\소상공인시장진흥공단_상가(상권)정보_20211231\\소상공인시장진흥공단_상가(상권)정보_경기_202112.csv"); // 현재																										// 지정.
 		BufferedReader br = null;
 
 		File output = new File(
-				"C:\\Users\\tiger\\Downloads\\소상공인시장진흥공단_상가(상권)정보_20211231\\소상공인시장진흥공단_상가(상권)정보_서울_202112_new.csv");
+				"C:\\Users\\tiger\\Downloads\\소상공인시장진흥공단_상가(상권)정보_20211231\\소상공인시장진흥공단_상가(상권)정보_경기_202112_new.csv");
 		BufferedWriter bw = null;
 
 		String line = "";
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(input), "UTF-8"));
 			bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(output), "UTF-8"));
-			
-			bw.write("name,type,subtype,address,lat,lng");
+
+			bw.write("name,type,subtype,address,code,lat,lng");
 			bw.newLine();
 			
 			while ((line = br.readLine()) != null) {
@@ -43,17 +43,18 @@ public class Main {
 					String type2 = arr[6]; // 중분류
 					String type3 = arr[8]; // 소분류
 					String address = arr[14] + " " + arr[16]; // 주소
+					String code = arr[17]; // 법정동코드
 					String latlng = arr[arr.length-1]; // 위도,경도
 					String lat = latlng.split(",")[2]; // 위도
 					String lng = latlng.split(",")[1]; // 경도
 
 					String res = "";
 					if(type2.equals("커피점/카페")) { // 카페
-						res = name + "," + "카페 "+ "," + " " + "," + address + "," + lat + "," + lng; 
+						res = name + "," + "카페 "+ "," + " " + "," + address + "," + code + "," + lat + "," + lng; 
 					}else if(type2.equals("유흥주점")) { // 바
-						res = name + "," + "바 "+ "," + type3 + "," + address + "," + lat + "," + lng; 
+						res = name + "," + "바 "+ "," + type3 + "," + address + "," + code + "," + lat + "," + lng; 
 					}else { //일반 음식점
-						res = name + "," + "식당 "+ "," + type3 + "," + address + "," + lat + "," + lng; 
+						res = name + "," + "식당 "+ "," + type3 + "," + address + "," + code + "," + lat + "," + lng; 
 					}
 					
 					bw.write(res);
