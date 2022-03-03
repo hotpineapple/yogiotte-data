@@ -17,7 +17,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -40,11 +39,11 @@ public class Main {
 			int cnt = 0;
 			int progress = 0;
 			while ((line = br.readLine()) != null) {
-				if(cnt == 10) {
-					cnt=0;
-					Thread.sleep(1500); // 1초 대기 - rate 제한 피하기 위함
+				if (cnt == 10) {
+					cnt = 0;
+					Thread.sleep(1100); // 1초 대기 - rate 제한 피하기 위함
 				}
-				if(progress == 1000) {
+				if (progress % 100 == 0) {
 					System.out.println("progress: " + progress);
 				}
 				String[] arr = line.split(",");
@@ -56,17 +55,30 @@ public class Main {
 				requestHeaders.put("X-Naver-Client-Secret", "cs7HxZXyPa");
 				String responsebody = get(apiURL, requestHeaders);
 
-
-				JSONObject jObject = new JSONObject(responsebody);				
-				JSONArray jArray = (JSONArray) jObject.get("items");
-				if(jArray.length()==0) {
-					 bw.write("");
-				} else {
-					
-					JSONObject jObject2 = (JSONObject) jArray.get(0);
-					String imgsrc = (String) jObject2.get("thumbnail");
-					bw.write(imgsrc);
+//				System.out.println(responsebody);
+				JSONObject jObject = new JSONObject(responsebody);
+//				System.out.println(jObject.get("items"));
+				if (!jObject.has("items")) {
+					bw.write("N/A");
+					bw.newLine();
+					cnt++;
+					progress++;
+					continue;
 				}
+				JSONArray jArray = (JSONArray) jObject.get("items");
+				if (jArray.length() == 0) {
+					bw.write("N/A");
+					bw.newLine();
+					cnt++;
+					progress++;
+					continue;
+				}
+
+				JSONObject jObject2 = (JSONObject) jArray.get(0);
+//				System.out.println(jObject2.get("thumbnail"));
+				String imgsrc = (String) jObject2.get("link");
+				bw.write(imgsrc);
+
 				bw.newLine();
 				cnt++;
 				progress++;
@@ -75,7 +87,7 @@ public class Main {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
