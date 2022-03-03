@@ -51,8 +51,8 @@ public class Main {
 				String apiURL = "https://openapi.naver.com/v1/search/image?sort=sim&query=" + name;
 
 				Map<String, String> requestHeaders = new HashMap<>();
-				requestHeaders.put("X-Naver-Client-Id", "BC6CkMuanyTseGcgRdCO");
-				requestHeaders.put("X-Naver-Client-Secret", "cs7HxZXyPa");
+				requestHeaders.put("X-Naver-Client-Id", "-");
+				requestHeaders.put("X-Naver-Client-Secret", "-");
 				String responsebody = get(apiURL, requestHeaders);
 
 //				System.out.println(responsebody);
