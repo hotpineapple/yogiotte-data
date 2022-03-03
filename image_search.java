@@ -38,42 +38,38 @@ public class Main {
 			br.readLine();
 			String line = "";
 			int cnt = 0;
+			int progress = 0;
 			while ((line = br.readLine()) != null) {
-				if(cnt==9) {
+				if(cnt == 10) {
 					cnt=0;
 					Thread.sleep(1500); // 1초 대기 - rate 제한 피하기 위함
+				}
+				if(progress == 1000) {
+					System.out.println("progress: " + progress);
 				}
 				String[] arr = line.split(",");
 				String name = arr[0]; // 이름
 				String apiURL = "https://openapi.naver.com/v1/search/image?sort=sim&query=" + name;
 
 				Map<String, String> requestHeaders = new HashMap<>();
-				requestHeaders.put("X-Naver-Client-Id", "키");
+				requestHeaders.put("X-Naver-Client-Id", "BC6CkMuanyTseGcgRdCO");
 				requestHeaders.put("X-Naver-Client-Secret", "cs7HxZXyPa");
 				String responsebody = get(apiURL, requestHeaders);
 
-				System.out.println(responsebody);
-				JSONObject jObject = new JSONObject(responsebody);
-//				System.out.println(jObject.get("items"));
-				if(!jObject.has("items")) {
-					 bw.write("");
-				     bw.newLine();
-				     cnt++;
-				     continue;
-				}
+
+				JSONObject jObject = new JSONObject(responsebody);				
 				JSONArray jArray = (JSONArray) jObject.get("items");
 				if(jArray.length()==0) {
 					 bw.write("");
-				     bw.newLine();
-				     cnt++;
-				     continue;
+				} else {
+					
+					JSONObject jObject2 = (JSONObject) jArray.get(0);
+					String imgsrc = (String) jObject2.get("thumbnail");
+					bw.write(imgsrc);
 				}
-				JSONObject jObject2 = (JSONObject) jArray.get(0);
-//				System.out.println(jObject2.get("thumbnail"));
-				String imgsrc = (String) jObject2.get("thumbnail");
-		        bw.write(imgsrc);
-		        bw.newLine();
-		        cnt++;
+				bw.newLine();
+				cnt++;
+				progress++;
 			}
 			System.out.println("파일생성완료");
 
