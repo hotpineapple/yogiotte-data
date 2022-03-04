@@ -12,6 +12,6 @@ CHARACTER SET utf8
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
-(name,maintype,subtype,address,code,lat,lng);
+(name,maintype,subtype,address,code,lat,lng,img);
 ```
 
