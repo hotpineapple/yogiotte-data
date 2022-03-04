@@ -48,7 +48,7 @@ public class Main {
 				}
 				String[] arr = line.split(",");
 				String name = arr[0]; // 이름
-				String apiURL = "https://openapi.naver.com/v1/search/image?sort=sim&query=" + name;
+				String apiURL = "https://openapi.naver.com/v1/search/image?sort=sim&query=" + URLEncoder(name + " 후기", "utf-8");
 
 				Map<String, String> requestHeaders = new HashMap<>();
 				requestHeaders.put("X-Naver-Client-Id", "-");
